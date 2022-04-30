@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body style="background-color: grey">
+  <body style="background-color: rgb(223, 221, 221)">
     <!-- HEADER -->
 
     <div class="container">
@@ -24,10 +24,11 @@
             type="text"
             class="form-control"
             id="name"
-            placeholder="Example input"
+            placeholder="enter name"
           />
           <div class="invalid-feedback">
-            Please enter a message in the textarea.
+            Name can not contains numbers and special symbols and must have
+            minimum two characters length.
           </div>
         </div>
 
@@ -43,9 +44,7 @@
           <small id="emailHelp" class="form-text text-muted"
             >We'll never share your email with anyone else.</small
           >
-          <div class="invalid-feedback">
-            Please enter a message in the textarea.
-          </div>
+          <div class="invalid-feedback">Please enter valid email.</div>
         </div>
 
         <div class="form-group">
@@ -57,7 +56,8 @@
             placeholder="Password"
           />
           <div class="invalid-feedback">
-            Please enter a message in the textarea.
+            Password must contains 1 large char of 1 special symbol, 1 digit and
+            a minimum of 8 characters.
           </div>
         </div>
 
@@ -70,14 +70,14 @@
             placeholder="Confirm Password"
           />
           <div class="invalid-feedback">
-            Please enter a message in the textarea.
+            Confirm password must be same like password.
           </div>
         </div>
 
         <div class="form-check mb-3">
           <input type="checkbox" class="form-check-input" id="rodo" required />
           <label class="form-check-label" for="rodo"
-            >I accpet
+            >Accpet
             <a
               target="_blank"
               onMouseOver="this.style.color='#0F0'"
@@ -86,30 +86,13 @@
               >RODO</a
             >
           </label>
-          <div class="invalid-feedback">Example invalid feedback text</div>
+          <div class="invalid-feedback">You must accept rodo.</div>
         </div>
 
         <button id="btn-form" type="submit" class="btn btn-primary">
           Submit
         </button>
       </form>
-
-      <div>
-        <p>NAME</p>
-        <p>min 2 znaki</p>
-        <p>nie moze zawierac cyfr i znaków specjalnych</p>
-        <p>EMAIL</p>
-        <p>zawiera @</p>
-        <p>zawiera domene</p>
-        <p>Password</p>
-        <p>8 znaków</p>
-        <p>1 duza litera</p>
-        <p>1 liczba</p>
-        <p>1 znak spejcalny</p>
-        <p>CONFIRM</p>
-        <p>taka sama zawartosc jak haslo</p>
-        <p>rodo ma wartosc boolean true/ false</p>
-      </div>
     </div>
   </body>
 </html>
