@@ -260,12 +260,13 @@ form.addEventListener('submit', function (e) {
   var isRodoValid = (0, _checkValid.checkValid)(rodo);
 
   if (isLoginValid && isEmailValid && isPasswordValid && isConfirmPasswordValid && isRodoValid) {
-    var data = new FormData();
-    data.append('login', login.value);
-    data.append('email', email.value);
-    data.append('password', password.value);
-    data.append('confirmPassword', confirmPassword.value);
-    data.append('rodo', rodo.checked);
+    var data = {
+      login: login.value,
+      email: email.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value,
+      rodo: rodo.checked
+    };
     submitData(data);
   } else {
     alert('blad');
@@ -273,19 +274,34 @@ form.addEventListener('submit', function (e) {
 });
 
 function submitData(data) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://przeprogramowani.pl/projekt-walidacja', true);
+  fetch('https://przeprogramowani.pl/projekt-walidacja', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(function (response) {
+    resetForms();
 
-  xhr.onloadstart = function () {
-    console.log('wyslano');
-  };
+    if (response.ok) {
+      return response.text();
+    }
 
-  xhr.onloadend = function () {
-    console.log('orzymano dane');
-    console.log(xhr.responseText);
-  };
+    throw 'nie udało się wysłać zapytania';
+  }).then(function (responseText) {
+    console.log(responseText);
+  }).catch(function (err) {
+    resetForms();
+    alert(err, 'try again');
+  });
+}
 
-  xhr.send(data);
+function resetForms() {
+  login.value = '';
+  email.value = '';
+  password.value = '';
+  confirmPassword.value = '';
+  rodo.checked = false;
 }
 },{"./validators/nameValidation.js":"validators/nameValidation.js","./validators/emailValidation.js":"validators/emailValidation.js","./validators/passwordValidation.js":"validators/passwordValidation.js","./validators/rodoValidation.js":"validators/rodoValidation.js","./validators/checkValid.js":"validators/checkValid.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -315,7 +331,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64166" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49759" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

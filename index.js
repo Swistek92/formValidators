@@ -49,13 +49,13 @@ form.addEventListener('submit', (e) => {
     isConfirmPasswordValid &&
     isRodoValid
   ) {
-    const data = new FormData();
-
-    data.append('login', login.value);
-    data.append('email', email.value);
-    data.append('password', password.value);
-    data.append('confirmPassword', confirmPassword.value);
-    data.append('rodo', rodo.checked);
+    const data = {
+      login: login.value,
+      email: email.value,
+      password: password.value,
+      confirmPassword: confirmPassword.value,
+      rodo: rodo.checked,
+    };
 
     submitData(data);
   } else {
@@ -64,18 +64,33 @@ form.addEventListener('submit', (e) => {
 });
 
 function submitData(data) {
-  const xhr = new XMLHttpRequest();
+  fetch('https://przeprogramowani.pl/projekt-walidacja', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      resetForms();
+      if (response.ok) {
+        return response.text();
+      }
+      throw 'nie udało się wysłać zapytania';
+    })
+    .then((responseText) => {
+      console.log(responseText);
+    })
+    .catch((err) => {
+      resetForms();
+      alert(err, 'try again');
+    });
+}
 
-  xhr.open('POST', 'https://przeprogramowani.pl/projekt-walidacja', true);
-
-  xhr.onloadstart = () => {
-    console.log('wyslano');
-  };
-
-  xhr.onloadend = () => {
-    console.log('orzymano dane');
-    console.log(xhr.responseText);
-  };
-
-  xhr.send(data);
+function resetForms() {
+  login.value = '';
+  email.value = '';
+  password.value = '';
+  confirmPassword.value = '';
+  rodo.checked = false;
 }
