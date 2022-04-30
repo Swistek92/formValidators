@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validator</title>
+    <script defer type="module" src="index.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body style="background-color: grey">
+    <!-- HEADER -->
+
+    <div class="container">
+      <form class="form-register">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Example input"
+          />
+          <div class="invalid-feedback">
+            Please enter a message in the textarea.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          >
+          <div class="invalid-feedback">
+            Please enter a message in the textarea.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+          />
+          <div class="invalid-feedback">
+            Please enter a message in the textarea.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+          />
+          <div class="invalid-feedback">
+            Please enter a message in the textarea.
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="rodo" required />
+          <label class="form-check-label" for="rodo"
+            >I accpet
+            <a
+              target="_blank"
+              onMouseOver="this.style.color='#0F0'"
+              onMouseOut="this.style.color='#00F'"
+              href="https://eur-lex.europa.eu/legal-content/PL/TXT/HTML/?uri=CELEX:32016R0679&from=EN"
+              >RODO</a
+            >
+          </label>
+          <div class="invalid-feedback">Example invalid feedback text</div>
+        </div>
+
+        <button id="btn-form" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      </form>
+
+      <div>
+        <p>NAME</p>
+        <p>min 2 znaki</p>
+        <p>nie moze zawierac cyfr i znaków specjalnych</p>
+        <p>EMAIL</p>
+        <p>zawiera @</p>
+        <p>zawiera domene</p>
+        <p>Password</p>
+        <p>8 znaków</p>
+        <p>1 duza litera</p>
+        <p>1 liczba</p>
+        <p>1 znak spejcalny</p>
+        <p>CONFIRM</p>
+        <p>taka sama zawartosc jak haslo</p>
+        <p>rodo ma wartosc boolean true/ false</p>
+      </div>
+    </div>
+  </body>
+</html>
