@@ -59,7 +59,7 @@ form.addEventListener('submit', (e) => {
 
     submitData(data);
   } else {
-    alert('blad');
+    alert('fill correct all fields!');
   }
 });
 
@@ -76,7 +76,7 @@ function submitData(data) {
       if (response.ok) {
         return response.text();
       }
-      throw 'nie udało się wysłać zapytania';
+      throw 'failed to send data';
     })
     .then((responseText) => {
       console.log(responseText);
