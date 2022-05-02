@@ -1,18 +1,16 @@
-function passwordValidation(el, value) {
-  const shorterThenNine = value.length < 8;
-  const haveMinOneUpperCase = !/[A-Z]/g.test(value);
-  const haveMinOneNumber = !/\d/g.test(value);
-  const haveMinOneSymbol = !/[!@#$%^&*()_+=-]/g.test(value);
-  if (
-    haveMinOneUpperCase ||
-    shorterThenNine ||
-    haveMinOneNumber ||
-    haveMinOneSymbol
-  ) {
-    el.classList.add('is-invalid');
-  } else {
-    el.classList.remove('is-invalid');
-  }
+import { changeStateOfValidation } from './changeStateOfValidation.js';
+
+function passwordValidation(password, value) {
+  const longerThenNine = value.length > 8;
+  const haveMinOneUpperCase = /[A-Z]/g.test(value);
+  const haveMinOneNumber = /\d/g.test(value);
+  const haveMinOneSymbol = /[!@#$%^&*()_+=-]/g.test(value);
+  const valid =
+    haveMinOneUpperCase &&
+    longerThenNine &&
+    haveMinOneNumber &&
+    haveMinOneSymbol;
+  return changeStateOfValidation(valid, password);
 }
 
 function confirmPasswordValidation(
@@ -22,11 +20,8 @@ function confirmPasswordValidation(
 ) {
   const passwordValue = password.value;
 
-  if (passwordValue !== confirmPasswordValue) {
-    confirmPassword.classList.add('is-invalid');
-  } else {
-    confirmPassword.classList.remove('is-invalid');
-  }
+  const valid = passwordValue === confirmPasswordValue;
+  return changeStateOfValidation(valid, confirmPassword);
 }
 
 export { passwordValidation, confirmPasswordValidation };

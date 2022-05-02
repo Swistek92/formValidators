@@ -1,9 +1,5 @@
 function checkValid(element) {
-  if (Object.values(element.classList).includes('is-invalid')) {
-    return false;
-  } else {
-    return true;
-  }
+  return !Object.values(element.classList).includes('is-invalid');
 }
 
 export { checkValid };

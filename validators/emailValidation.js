@@ -1,11 +1,10 @@
-function emailValidation(emial, value) {
-  const includeDomainAndAt = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import { changeStateOfValidation } from './changeStateOfValidation.js';
 
-  if (!includeDomainAndAt.test(value)) {
-    emial.classList.add('is-invalid');
-  } else {
-    emial.classList.remove('is-invalid');
-  }
+function emailValidation(emial, value) {
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const valid = validEmail.test(value);
+
+  return changeStateOfValidation(valid, emial);
 }
 
 export { emailValidation };

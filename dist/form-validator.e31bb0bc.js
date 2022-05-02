@@ -117,7 +117,22 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"validators/nameValidation.js":[function(require,module,exports) {
+})({"validators/changeStateOfValidation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.changeStateOfValidation = changeStateOfValidation;
+
+function changeStateOfValidation(valid, element) {
+  if (!valid) {
+    element.classList.add('is-invalid');
+  } else {
+    element.classList.remove('is-invalid');
+  }
+}
+},{}],"validators/nameValidation.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -125,17 +140,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.nameValidation = nameValidation;
 
+var _changeStateOfValidation = require("./changeStateOfValidation.js");
+
 function nameValidation(el, value) {
   var longerThenTwo = value.length < 2;
   var includeDigitsAndSpecialCharacters = /[1-9!@#$%^&*()_+=-]/g.test(value);
-
-  if (longerThenTwo || includeDigitsAndSpecialCharacters) {
-    el.classList.add('is-invalid');
-  } else {
-    el.classList.remove('is-invalid');
-  }
+  var valid = !longerThenTwo && !includeDigitsAndSpecialCharacters;
+  return (0, _changeStateOfValidation.changeStateOfValidation)(valid, el);
 }
-},{}],"validators/emailValidation.js":[function(require,module,exports) {
+},{"./changeStateOfValidation.js":"validators/changeStateOfValidation.js"}],"validators/emailValidation.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -143,16 +156,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.emailValidation = emailValidation;
 
-function emailValidation(emial, value) {
-  var includeDomainAndAt = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+var _changeStateOfValidation = require("./changeStateOfValidation.js");
 
-  if (!includeDomainAndAt.test(value)) {
-    emial.classList.add('is-invalid');
-  } else {
-    emial.classList.remove('is-invalid');
-  }
+function emailValidation(emial, value) {
+  var validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var valid = validEmail.test(value);
+  return (0, _changeStateOfValidation.changeStateOfValidation)(valid, emial);
 }
-},{}],"validators/passwordValidation.js":[function(require,module,exports) {
+},{"./changeStateOfValidation.js":"validators/changeStateOfValidation.js"}],"validators/passwordValidation.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -161,29 +172,23 @@ Object.defineProperty(exports, "__esModule", {
 exports.confirmPasswordValidation = confirmPasswordValidation;
 exports.passwordValidation = passwordValidation;
 
-function passwordValidation(el, value) {
-  var shorterThenNine = value.length < 8;
-  var haveMinOneUpperCase = !/[A-Z]/g.test(value);
-  var haveMinOneNumber = !/\d/g.test(value);
-  var haveMinOneSymbol = !/[!@#$%^&*()_+=-]/g.test(value);
+var _changeStateOfValidation = require("./changeStateOfValidation.js");
 
-  if (haveMinOneUpperCase || shorterThenNine || haveMinOneNumber || haveMinOneSymbol) {
-    el.classList.add('is-invalid');
-  } else {
-    el.classList.remove('is-invalid');
-  }
+function passwordValidation(password, value) {
+  var longerThenNine = value.length > 8;
+  var haveMinOneUpperCase = /[A-Z]/g.test(value);
+  var haveMinOneNumber = /\d/g.test(value);
+  var haveMinOneSymbol = /[!@#$%^&*()_+=-]/g.test(value);
+  var valid = haveMinOneUpperCase && longerThenNine && haveMinOneNumber && haveMinOneSymbol;
+  return (0, _changeStateOfValidation.changeStateOfValidation)(valid, password);
 }
 
 function confirmPasswordValidation(confirmPassword, password, confirmPasswordValue) {
   var passwordValue = password.value;
-
-  if (passwordValue !== confirmPasswordValue) {
-    confirmPassword.classList.add('is-invalid');
-  } else {
-    confirmPassword.classList.remove('is-invalid');
-  }
+  var valid = passwordValue === confirmPasswordValue;
+  return (0, _changeStateOfValidation.changeStateOfValidation)(valid, confirmPassword);
 }
-},{}],"validators/rodoValidation.js":[function(require,module,exports) {
+},{"./changeStateOfValidation.js":"validators/changeStateOfValidation.js"}],"validators/rodoValidation.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -192,11 +197,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.rodoValidation = rodoValidation;
 
 function rodoValidation(rodo) {
-  if (!rodo.checked) {
-    rodo.classList.add('is-invalid');
-  } else {
-    rodo.classList.remove('is-invalid');
-  }
+  rodo.classList.toggle('is-invalid');
 }
 },{}],"validators/checkValid.js":[function(require,module,exports) {
 "use strict";
@@ -207,11 +208,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.checkValid = checkValid;
 
 function checkValid(element) {
-  if (Object.values(element.classList).includes('is-invalid')) {
-    return false;
-  } else {
-    return true;
-  }
+  return !Object.values(element.classList).includes('is-invalid');
 }
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
@@ -331,7 +328,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49759" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52917" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
